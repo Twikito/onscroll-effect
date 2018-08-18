@@ -1,0 +1,29 @@
+{
+	"name": "onscroll-effect",
+	"version": "1.0.0",
+	"description": "Toggle class to enable CSS animations when element appears on viewport when scrolling.",
+	"main": "dist/onscroll-effect.js",
+	"scripts": {
+
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Twikito/onscroll-effect.git"
+	},
+	"keywords": [
+		"scroll",
+		"toggle",
+		"css",
+		"animation"
+	],
+	"author": "Matthieu Bué <https://twikito.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Twikito/onscroll-effect/issues"
+	},
+	"homepage": "https://github.com/Twikito/onscroll-effect#readme",
+	"dependencies": {},
+	"devDependencies": {
+
+	}
+}

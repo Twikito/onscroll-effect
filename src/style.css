@@ -1,0 +1,5 @@
+/* Change this selector if you change PREFIX variable */
+
+[data-scroll].is-outside {
+	transition: none !important;
+}
