@@ -4,7 +4,14 @@
 	"description": "Toggle class to enable CSS animations when element appears on viewport when scrolling.",
 	"main": "dist/onscroll-effect.js",
 	"scripts": {
-
+		"lint": "eslint src",
+		"lint:fix": "eslint --fix src",
+		"prettier": "prettier --debug-check src/**/*.js",
+		"prettier:write": "prettier --write src/**/*.js",
+		"test": "npm run prettier:write",
+		"clean": "del-cli --force dist",
+		"terser": "terser src/index.js --compress --mangle --output dist/onscroll-effect.min.js",
+		"build": "npm run clean && npm run terser"
 	},
 	"repository": {
 		"type": "git",
@@ -24,6 +31,9 @@
 	"homepage": "https://github.com/Twikito/onscroll-effect#readme",
 	"dependencies": {},
 	"devDependencies": {
-
+		"del-cli": "^1.1.0",
+		"eslint": "^5.4.0",
+		"prettier": "^1.14.2",
+		"terser": "^3.8.1"
 	}
 }
