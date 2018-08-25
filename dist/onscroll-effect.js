@@ -73,5 +73,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 	});
 
 	window.addEventListener("scroll", debounce(scrollEffect, 10), true);
-	window.initScrollEffect = scrollEffect;
+
+	window.initScrollEffect = function () {
+		scrollEffect();
+		scrollEffect();
+	};
 })();

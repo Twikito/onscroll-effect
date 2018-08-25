@@ -80,5 +80,9 @@
 	});
 
 	window.addEventListener("scroll", debounce(scrollEffect, 10), true);
-	window.initScrollEffect = scrollEffect;
+
+	window.initScrollEffect = () => {
+		scrollEffect();
+		scrollEffect();
+	}
 })();
