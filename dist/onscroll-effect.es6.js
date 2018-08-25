@@ -1,10 +1,10 @@
 /**
  * -------------------------------------------------------------------
  * onscroll-effect
- * Toggle class to enable CSS animations when element appears on viewport when scrolling.
+ * A tiny JavaScript library to enable CSS animations when user scrolls.
  *
  * @author Matthieu Bué <https://twikito.com>
- * @version v1.0.0
+ * @version v1.0.1
  * @link https://github.com/Twikito/onscroll-effect#readme
  * @license MIT
  * -------------------------------------------------------------------
