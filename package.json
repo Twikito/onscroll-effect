@@ -1,7 +1,7 @@
 {
 	"name": "onscroll-effect",
 	"version": "1.0.1",
-	"description": "Toggle class to enable CSS animations when element appears on viewport when scrolling.",
+	"description": "A tiny JavaScript library to enable CSS animations when user scrolls.",
 	"main": "dist/onscroll-effect.es6.js",
 	"scripts": {
 		"clean": "del-cli --force dist",
