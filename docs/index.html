@@ -6,8 +6,240 @@
 	<title>onScroll Effect</title>
 	<meta name="description" content="A tiny JavaScript library to enable CSS animations when user scrolls.">
 
+	<link rel="preload" as="script" type="text/javascript" href="https://rawgit.com/Twikito/onscroll-effect/master/dist/onscroll-effect.es6.min.js">
+	<link rel="preload" as="script" type="text/javascript" href="https://rawgit.com/cferdinandi/smooth-scroll/master/dist/smooth-scroll.min.js">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+	<link rel="manifest" href="assets/favicons/site.webmanifest">
+	<link rel="mask-icon" href="assets/favicons/safari-pinned-tab.svg" color="#0074b0">
+	<link rel="shortcut icon" href="assets/favicons/favicon.ico">
+	<meta name="msapplication-TileColor" content="#0074b0">
+	<meta name="msapplication-config" content="assets/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#0074b0">
+
+	<meta property="og:title" content="OnScroll Effect">
+	<meta property="og:description" content="A tiny JavaScript library to enable CSS animations when user scrolls.">
+	<meta property="og:url" content="https://twikito.github.io/onscroll-effect/">
+	<meta property="og:type" content="website">
+	<meta property="og:locale" content="en_en">
+	<meta property="og:image" content="https://rawgit.com/Twikito/onscroll-effect/master/docs/assets/favicons/og-image.jpg">
+	<meta property="og:image:width" content="279">
+	<meta property="og:image:height" content="279">
+
+	<meta name="twitter:card" content="summary">
+
+	<link rel="author" href="//github.com/Twikito">
+	<link rel="author" type="text/plain" href="humans.txt">
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:500%7COpen+Sans:400,600">
+	<link rel="stylesheet" href="assets/css/prism.css">
+	<link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
+	<header id="header">
+		<h1>
+			<span class="logo">
+				<svg viewBox="0 0 40 340" class="logo-scroll" data-scroll="🤘😝" data-scroll-repeat="true">
+					<title>onScroll Effect awesome logo!</title>
+					<rect class="logo-scroll-bg" width="40" height="340" rx="20" ry="20" />
+					<rect class="logo-scroll-bar" x="8.57" y="8.48" width="22.86" height="139.15" rx="11.43" ry="11.43" />
+				</svg>
+				<span class="logo-text">
+					on<br> Scroll<br> Effect
+				</span>
+			</span>
+		</h1>
+	</header>
 
+	<main class="wrapper">
+		<p class="color-theme text-lg">
+			<strong>A tiny JavaScript library to enable <abbr title="Cascading Style Sheets">CSS</abbr> animations when user scrolls.</strong>
+		</p>
+		<p>
+			This library toggles a class to an element when it appears on viewport when user scrolls. It lets you build CSS transitions or animations launched only when user scrolls on it. Only set a few HTML attributes, and code the rest with your CSS skills.
+		</p>
+		<p>
+			Note that in order to not be JavaScript dependant, this library add the class when the element <strong>is outside</strong> of the viewport. This way, if you have a <abbr title="JavaScript">JS</abbr> error, it's the default state that will appears on scroll.
+		</p>
+
+		<div id="download">
+			<a class="button" href="//raw.githubusercontent.com/Twikito/onscroll-effect/master/dist/onscroll-effect.es6.min.js" title="Download onScroll Effect compressed, production version">
+				<span class="big"><strong>Download</strong> &ndash; 1,13ko</span><br>
+				<small>Compressed, for production</small>
+			</a>
+			<a class="button" href="//raw.githubusercontent.com/Twikito/onscroll-effect/master/dist/onscroll-effect.es6.js" title="Download onScroll Effect uncompressed, development version">
+				<span class="big"><strong>Download</strong> &ndash; 2,80ko</span><br>
+				<small>Uncompressed, for development</small>
+			</a>
+			<a class="button button--grey" href="//github.com/Twikito/onscroll-effect" title="View onScroll Effect on GitHub">
+				View on GitHub
+			</a>
+		</div>
+
+		<hr>
+
+		<section>
+			<h2 id="demo" data-scroll data-scroll-repeat="true">
+				<a href="#demo">Demo</a>
+			</h2>
+			<p>
+				The following fake elements are generated randomly just to illustrate <a href="#how-to-use"">what you can do with this library</a>.
+			</p>
+			<p>
+				The circles are set to be animated several or infinite times, the squares just once. Of course, the animations defined manually are for example. You can make whatever you want in your CSS.
+			</p>
+			<p>
+				Hover any of them to see their settings in the tooltip. If you want to follow one as you scroll up and down, just click on it.
+			</p>
+			<div class="demo" aria-hidden="true"></div>
+		</section>
+
+		<hr>
+
+		<section>
+			<h2 id="how-to-use" data-scroll data-scroll-repeat="true">
+				<a href="#how-to-use">How to use</a>
+			</h2>
+
+			<section class="language-html">
+				<h3 id="basics" data-scroll data-scroll-repeat="true">
+					<a href="#basics">Basics</a>
+				</h3>
+				<dl>
+					<dt>
+						<pre><code>&lt;foo data-scroll="class-name"&gt;</code></pre>
+					</dt>
+					<dd>
+						<p>A CSS class name, added when this element is outside of viewport, <code>is-outside</code> if empty.</p>
+					</dd>
+
+					<dt>
+						<pre><code>&lt;foo data-scroll data-scroll-repeat=" false | true | &lt;number&gt; "&gt;</code></pre>
+					</dt>
+					<dd>
+						<p><em>optional</em> — Specify if the class will be added each time the element appears in viewport or not, or a maximum number of iteration. <code>false</code> by default if not specified.</p>
+					</dd>
+
+					<dt>
+						<pre><code>&lt;foo data-scroll data-scroll-offset=" &lt;number&gt; "&gt;</code></pre>
+					</dt>
+					<dd>
+						<p><em>optional</em> — Specify an offset in pixels to take into account from the top and bottom edges of the viewport. <code>0</code> by default if not specified.</p>
+					</dd>
+				</dl>
+			</section>
+
+			<section>
+				<h3 id="recommandation" data-scroll data-scroll-repeat="true">
+					<a href="#recommandation">Recommendation</a>
+				</h3>
+				<p>Most of the time, when you build a transition or an animation on an element, you don't need it to played backward when this element goes outside of the viewport. That's why I recommand to use these few lines of CSS:</p>
+				<pre><code class="language-css">[data-scroll].is-outside {
+	transition: none;
+	animation: none;
+}</code></pre>
+			</section>
+
+			<section class="language-html">
+				<h3 id="advanced" data-scroll data-scroll-repeat="true">
+					<a href="#advanced">Advanced</a>
+				</h3>
+				<section>
+					<h4 id="prefix">
+						<a href="#prefix">Custom prefix</a>
+					</h4>
+					<p>You can change the prefix <code>scroll</code> in <code>data-scroll</code> and every attributes to prevent conflict with another <abbr title="JavaScript">JS</abbr> library. To do so, add this attribute to your <code>&lt;html&gt;</code> element with your new prefix:</p>
+					<pre><code>&lt;html data-onscroll-effect-custom-prefix="my-prefix"&gt;</code></pre>
+					<p>It will so be set to all attributes like <code>data-my-prefix</code>.</p>
+				</section>
+				<section>
+					<h4 id="asynchronous">
+						<a href="#asynchronous">Asynchronous needs</a>
+					</h4>
+					<p>For asynchronous needs, you can initiate the magic with:</p>
+					<pre><code class="language-js">window.initOnScrollEffect();</code></pre>
+				</section>
+				<section>
+					<h4 id="hooks">
+						<a href="#hooks">Hooks</a>
+					</h4>
+					<p>You can also add some hooks: each element with <code>data-scroll</code> attribute fires an <code>insideViewport</code> event when it appears in viewport, and an <code>outsideViewport</code> event when it disappears from viewport. You can add event listeners on these events, and also test the state of the element with <code>isRepeating</code>, <code>repeatCount</code> and <code>isInViewport</code> properties. For example:</p>
+					<pre><code class="language-js">document.querySelector("#myElement").addEventListener("insideViewport", (event) => {
+	console.log(`Is still repeating: ${event.target.isRepeating}`);
+}, false);</code></pre>
+				</section>
+			</section>
+
+		</section>
+
+		<hr>
+
+		<section class="language-bash">
+			<h2 id="quick-start" data-scroll data-scroll-repeat="true">
+				<a href="#quick-start">Quick start</a>
+			</h2>
+			<section>
+				<h3 id="quick-start-manually" data-scroll data-scroll-repeat="true">
+					<a href="#quick-start-manually">Manually</a>
+				</h3>
+				<ul>
+					<li><a href="#download">Direct download</a></li>
+					<li>Choose another version: <a href="//github.com/Twikito/onscroll-effect/tree/master/dist">ES5 or ES6</a>.</li>
+				</ul>
+				<p>Then, <strong>add the script into your page</strong>, and it’s done.</p>
+			</section>
+			<section>
+				<h3 id="quick-start-npm" data-scroll data-scroll-repeat="true">
+					<a href="#quick-start-npm">With npm</a>
+				</h3>
+				<p>Install with <a href="//www.npmjs.com/package/onscroll-effect">npm</a>:</p>
+				<pre><code>npm install onscroll-effect</code></pre>
+				<p>Then load <em>onScroll Effect</em> into your application, inside your main <abbr title="JavaScript">JS</abbr> file:</p>
+				<pre><code class="language-js">import "onscroll-effect";
+// or
+require("onscroll-effect");</code></pre>
+ 				<p>and the magic happens!</p>
+			</section>
+			<section>
+				<h3 id="compatibility" data-scroll data-scroll-repeat="true">
+					<a href="#compatibility">Compatibility</a>
+				</h3>
+				<p>In addition of using <a href="//github.com/Twikito/onscroll-effect/blob/master/dist/onscroll-effect.min.js">ES5 version</a>, compatibility for Internet Explorer is provided by <a href="//polyfill.io/">polyfill.io</a> which supports back to <abbr title="Internet Explorer">IE</abbr> 7. And before you ask, yes, you can <a href="//github.com/Financial-Times/polyfill-service#running-locally">run it locally</a>.</p>
+			</section>
+		</section>
+
+		<hr>
+
+		<section>
+			<h2 id="contribution" data-scroll data-scroll-repeat="true">
+				<a href="#contribution">Contribution</a>
+			</h2>
+			<ul>
+				<li>Clone the repo: <code class="language-bash">git clone https://github.com/twikito/onscroll-effect.git</code></li>
+				<li>Development: <code class="language-bash">npm run build</code></li>
+				<li><a href="//github.com/Twikito/onscroll-effect/fork">Fork repository on GitHub</a></li>
+				<li><a href="//github.com/Twikito/onscroll-effect/issues">Report a bug</a></li>
+				<li><a href="//github.com/Twikito/onscroll-effect/issues">Suggest a feature</a></li>
+			</ul>
+		</section>
+	</main>
+
+	<footer>
+		<div class="wrapper">
+			<p>
+				Proudly made
+				under&nbsp;<a href="//github.com/Twikito/onscroll-effect/blob/master/LICENSE">MIT&nbsp;license</a>
+				on&nbsp;<a href="//github.com/Twikito/onscroll-effect" title="View onScroll Effect on GitHub">GitHub</a>
+				by&nbsp;<a href="//twikito.com">Matthieu&nbsp;Bué</a>.
+			</p>
+		</div>
+	</footer>
+
+	<script src="https://rawgit.com/Twikito/onscroll-effect/master/dist/onscroll-effect.es6.min.js"></script>
+	<script src="https://rawgit.com/cferdinandi/smooth-scroll/master/dist/smooth-scroll.min.js"></script>
+	<script src="assets/js/prism.js"></script>
+	<script src="assets/js/main.js"></script>
 </body>
 </html>
