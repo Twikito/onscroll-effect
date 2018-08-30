@@ -8,7 +8,7 @@ html {
 }
 
 body {
-	margin: 0; overflow-x: hidden;
+	margin: 0;
 	font: 400 1.8em / 1.5 'Open Sans', sans-serif; color: #556;
 }
 
@@ -253,6 +253,11 @@ pre[class*="language-"] {
 	display: grid; margin-top: 10%;
 	grid-template-columns: repeat(auto-fill, 6em);
 	grid-gap: 1em; grid-auto-flow: row dense; justify-content: space-between; align-items: stretch;
+}
+@media (max-width: 1280px) {
+	.demo {
+		overflow: hidden;
+	}
 }
 .demo button {
 	display: block; padding: 0; margin: 0;
