@@ -4,12 +4,12 @@ const
 	rename = require("gulp-rename"),
 	terser = require('gulp-terser'),
 	babel = require('gulp-babel'),
+	gutil = require('gulp-util'),
 	pkg = require('./package.json'),
 	now = new Date();
 
-const
-	shortBanner = `/*! <%= pkg.name %> v<%= pkg.version %> | (c) ${now.getFullYear()} <%= pkg.author %> | <%= pkg.license %> license | <%= pkg.homepage %> */`+'\n',
-	longBanner = `/**
+const banner = {
+	long: `/**
  * -------------------------------------------------------------------
  * <%= pkg.name %>
  * <%= pkg.description %>
@@ -20,37 +20,57 @@ const
  * @license <%= pkg.license %>
  * -------------------------------------------------------------------
  */
-`+'\n';
+`+'\n',
+	short: `/*! <%= pkg.name %> v<%= pkg.version %> | (c) ${now.getFullYear()} <%= pkg.author %> | <%= pkg.license %> license | <%= pkg.homepage %> */`+'\n',
+};
 
+const getBanner = (type = 'long') => ({
+	value: banner[type], options: { pkg }
+});
+const getName = (isMin = false, type = '') => {
+	return [
+		'onscroll-effect',
+		type,
+		isMin ? 'min' : '',
+		'js'
+	]
+		.filter(Boolean)
+		.join('.');
+};
 
-gulp.task('es6', () => gulp.src('src/index.js')
-	.pipe( header(longBanner, { pkg : pkg }) )
-	.pipe( rename('onscroll-effect.es6.js') )
-	.pipe( gulp.dest('dist') )
-	.pipe( terser() )
-);
+const runIf = (condition, task, ...opt) => (condition ? task : gutil.noop)(...opt);
 
-gulp.task('es6:min', () => gulp.src('src/index.js')
-	.pipe( terser() )
-	.pipe( header(shortBanner, { pkg : pkg }) )
-	.pipe( rename('onscroll-effect.es6.min.js') )
-	.pipe( gulp.dest('dist') )
-);
+const tasks = [], list = [
+	{
+		name: 'es6',
+		head: getBanner(),
+		file: getName(false, 'es6')
+	},
+	{
+		name: 'es6:min',
+		head: getBanner('short'),
+		file: getName(true, 'es6')
+	},
+	{
+		name: 'es5',
+		head: getBanner(),
+		file: getName()
+	},
+	{
+		name: 'es5:min',
+		head: getBanner('short'),
+		file: getName(true)
+	}
+].forEach(({ name, head, file }) => {
+	tasks.push(name);
+	gulp.task(name, () => {
+		return gulp.src('src/index.js')
+			.pipe( rename(file) )
+			.pipe( runIf(name.includes('es5'), babel, { presets: ['env'] }) )
+			.pipe( runIf(name.includes('min'), terser) )
+			.pipe( header(head.value, head.options) )
+			.pipe( gulp.dest('dist') );
+	});
+});
 
-gulp.task('es5', () => gulp.src('src/index.js')
-	.pipe( babel({ presets: ['env'] }) )
-	.pipe( header(longBanner, { pkg : pkg }) )
-	.pipe( rename('onscroll-effect.js') )
-	.pipe( gulp.dest('dist') )
-	.pipe( terser() )
-);
-
-gulp.task('es5:min', () => gulp.src('src/index.js')
-	.pipe( babel({ presets: ['env'] }) )
-	.pipe( terser() )
-	.pipe( header(shortBanner, { pkg : pkg }) )
-	.pipe( rename('onscroll-effect.min.js') )
-	.pipe( gulp.dest('dist') )
-);
-
-gulp.task('default', ['es6', 'es6:min', 'es5', 'es5:min']);
+gulp.task('default', tasks);

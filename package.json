@@ -4,6 +4,11 @@
 	"description": "A tiny JavaScript library to enable CSS animations when user scrolls.",
 	"main": "dist/onscroll-effect.es6.js",
 	"scripts": {
+		"lint": "eslint src",
+		"lint:fix": "eslint --fix src",
+		"prettier": "prettier --debug-check src/**/*.js",
+		"prettier:write": "prettier --write src/**/*.js",
+		"test": "npm run lint",
 		"clean": "del-cli --force dist",
 		"build": "npm run clean && gulp"
 	},
@@ -28,10 +33,13 @@
 		"babel-core": "^6.26.3",
 		"babel-preset-env": "^1.7.0",
 		"del-cli": "^1.1.0",
+		"eslint": "^5.4.0",
 		"gulp": "^3.9.1",
 		"gulp-babel": "^7.0.1",
 		"gulp-header": "^2.0.5",
 		"gulp-rename": "^1.4.0",
-		"gulp-terser": "^1.0.1"
+		"gulp-terser": "^1.0.1",
+		"gulp-util": "^3.0.8",
+		"prettier": "^1.14.2"
 	}
 }
