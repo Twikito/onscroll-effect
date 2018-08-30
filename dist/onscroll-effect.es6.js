@@ -11,50 +11,69 @@
  */
 
 (() => {
-	const PREFIX = "scroll";
+	const
+		INSIDE_VP = new Event("insideViewport"),
+		OUTSIDE_VP = new Event("outsideViewport"),
+		PREFIX = document.documentElement.getAttribute("data-onscroll-effect-custom-prefix") || "scroll";
+
+	let warn = false;
 
 	// Debounce function: https://davidwalsh.name/javascript-debounce-function
 	const debounce = (func, wait, immediate) => {
 		let timeout;
-		return function() {
+		return function () {
 			const
-				context = this,
-				args = arguments;
+				args = arguments,
+				context = this;
 			clearTimeout(timeout);
 			timeout = setTimeout(() => {
 				timeout = null;
-				if (!immediate) func.apply(context, args);
+				if (!immediate) Reflect.apply(func, context, args);
 			}, wait);
-			if (immediate && !timeout) func.apply(context, args);
+			if (immediate && !timeout) Reflect.apply(func, context, args);
 		};
 	};
 
 	const scrollEffect = () => {
-		let windowScrollTop = window.scrollY,
-			windowInnerHeight = window.innerHeight;
+		const nodeList = [...document.querySelectorAll(`[data-${PREFIX}]`)];
 
-		[...document.querySelectorAll(`[data-${PREFIX}]`)].forEach(node => {
+		if (!warn && nodeList.length === 0) {
+			warn = true;
+			return console.warn(`onScroll Effect is not used: there's no element with 'data-${PREFIX}' attribute.`);
+		}
+		warn = false;
+
+		nodeList.filter(node => node.isRepeating !== false).forEach(node => {
 			const
 				config = {
 					className: node.dataset[PREFIX],
 					repeat: node.dataset[PREFIX + "Repeat"],
-					offset: +node.dataset[PREFIX + "Offset"],
-					count: +node.dataset[PREFIX + "Count"]
+					offset: Number(node.dataset[PREFIX + "Offset"]),
+					count: Number(node.dataset[PREFIX + "Count"])
 				},
+				nodeRect = node.getBoundingClientRect(),
 				scrollClass = config.className || "is-outside",
-				scrollOffset = isNaN(config.offset) ? 0 : config.offset,
-				scrollCount = isNaN(node.scrollCount) ? 0 : node.scrollCount,
-				scrollRepeat = isNaN(+config.repeat) ? 1 : +config.repeat,
+				scrollCount = isNaN(node.repeatCount) ? 0 : node.repeatCount,
 				scrollInfiniteRepeat = config.repeat === "true",
-				nodeRect = node.getBoundingClientRect();
+				scrollOffset = isNaN(config.offset) ? 0 : config.offset,
+				scrollRepeat = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat);
+
+			node.isRepeating = node.isRepeating === undefined ? true : node.isRepeating;
 
 			// if ( has the class AND viewport bottom >= top of object + offset AND viewport top <= bottom of object - offset )
 			if (
 				node.classList.contains(scrollClass) &&
-				nodeRect.top + scrollOffset <= windowInnerHeight &&
+				nodeRect.top + scrollOffset <= window.innerHeight &&
 				nodeRect.bottom - scrollOffset >= 0
 			) {
 				node.classList.remove(scrollClass);
+				node.dispatchEvent(INSIDE_VP);
+
+				if (!scrollInfiniteRepeat && scrollCount >= scrollRepeat) {
+					node.isRepeating = false;
+				}
+
+				return node.isInViewport = true;
 			}
 
 			// if ( first scroll OR ( ( infinite OR less that max ) AND ( has not the class AND ouside of viewport ) ) )
@@ -62,17 +81,22 @@
 				(!node.classList.contains(scrollClass) && scrollCount === 0) ||
 				((scrollInfiniteRepeat || scrollCount < scrollRepeat) &&
 					(!node.classList.contains(scrollClass) &&
-						(nodeRect.top > windowInnerHeight || nodeRect.bottom < 0)))
+						(nodeRect.top > window.innerHeight || nodeRect.bottom < 0)))
 			) {
 				node.classList.add(scrollClass);
-				node.scrollCount = scrollCount + 1;
+				node.repeatCount = scrollCount + 1;
+				node.dispatchEvent(OUTSIDE_VP);
+
+				return node.isInViewport = false;
 			}
 		});
 	};
 
-	// Trigger two times – on each readystatechange – to animate elements already in viewport:
-	// First, add the class, then remove it, so you can see the animation
-	document.addEventListener("readystatechange", function(e) {
+	/*
+	 * Trigger two times – on each readystatechange – to animate elements already in viewport:
+	 * First, add the class, then remove it, so you can see the animation
+	 */
+	document.addEventListener("readystatechange", function (e) {
 		scrollEffect();
 		if (document.readyState === "complete") {
 			e.target.removeEventListener(e.type, arguments.callee);
@@ -81,7 +105,7 @@
 
 	window.addEventListener("scroll", debounce(scrollEffect, 10), true);
 
-	window.initScrollEffect = () => {
+	window.initOnScrollEffect = () => {
 		scrollEffect();
 		scrollEffect();
 	}
