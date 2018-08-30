@@ -46,7 +46,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		warn = false;
 
 		nodeList.filter(function (node) {
-			return node.isRepeating !== false;
+			return typeof node.isRepeating === "undefined" || node.isRepeating;
 		}).forEach(function (node) {
 			var config = {
 				className: node.dataset[PREFIX],
@@ -56,32 +56,31 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			},
 			    nodeRect = node.getBoundingClientRect(),
 			    scrollClass = config.className || "is-outside",
-			    scrollCount = isNaN(node.repeatCount) ? 0 : node.repeatCount,
 			    scrollInfiniteRepeat = config.repeat === "true",
 			    scrollOffset = isNaN(config.offset) ? 0 : config.offset,
 			    scrollRepeat = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat);
 
-			node.isRepeating = node.isRepeating === undefined ? true : node.isRepeating;
+			node.repeatCount = typeof node.repeatCount === "undefined" ? 0 : node.repeatCount;
+			node.isRepeating = typeof node.isRepeating === "undefined" ? true : node.isRepeating;
 
 			// if ( has the class AND viewport bottom >= top of object + offset AND viewport top <= bottom of object - offset )
 			if (node.classList.contains(scrollClass) && nodeRect.top + scrollOffset <= window.innerHeight && nodeRect.bottom - scrollOffset >= 0) {
 				node.classList.remove(scrollClass);
+				node.repeatCount += 1;
+				node.isInViewport = true;
 				node.dispatchEvent(INSIDE_VP);
-
-				if (!scrollInfiniteRepeat && scrollCount >= scrollRepeat) {
+				if (!scrollInfiniteRepeat && node.repeatCount >= scrollRepeat) {
 					node.isRepeating = false;
 				}
-
-				return node.isInViewport = true;
+				return node.isInViewport;
 			}
 
 			// if ( first scroll OR ( ( infinite OR less that max ) AND ( has not the class AND ouside of viewport ) ) )
-			if (!node.classList.contains(scrollClass) && scrollCount === 0 || (scrollInfiniteRepeat || scrollCount < scrollRepeat) && !node.classList.contains(scrollClass) && (nodeRect.top > window.innerHeight || nodeRect.bottom < 0)) {
+			if (!node.classList.contains(scrollClass) && node.repeatCount === 0 || (scrollInfiniteRepeat || node.repeatCount < scrollRepeat) && !node.classList.contains(scrollClass) && (nodeRect.top > window.innerHeight || nodeRect.bottom < 0)) {
 				node.classList.add(scrollClass);
-				node.repeatCount = scrollCount + 1;
+				node.isInViewport = false;
 				node.dispatchEvent(OUTSIDE_VP);
-
-				return node.isInViewport = false;
+				return node.isInViewport;
 			}
 		});
 	};
