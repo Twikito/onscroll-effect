@@ -5,7 +5,7 @@
  *
  * @author Matthieu Bué <https://twikito.com>
  * @version v1.1.0
- * @link https://github.com/Twikito/onscroll-effect#readme
+ * @link https://twikito.github.io/onscroll-effect/
  * @license MIT
  * -------------------------------------------------------------------
  */

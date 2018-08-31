@@ -27,7 +27,7 @@
 	"bugs": {
 		"url": "https://github.com/Twikito/onscroll-effect/issues"
 	},
-	"homepage": "https://github.com/Twikito/onscroll-effect#readme",
+	"homepage": "https://twikito.github.io/onscroll-effect/",
 	"dependencies": {},
 	"devDependencies": {
 		"babel-core": "^6.26.3",
