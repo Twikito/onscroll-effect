@@ -1,10 +1,5 @@
 (() => {
 
-	const scroll = new SmoothScroll("a[href^='#']:not([role='button'])", {
-		speed: 500,
-		easing: 'easeInOutQuint'
-	});
-
 	const getRandomInt = max => Math.floor(Math.random() * Math.floor(max));
 
 	const container = document.querySelector(".demo");
