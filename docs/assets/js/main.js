@@ -15,6 +15,7 @@
 
 		btn.setAttribute("type", "button");
 		btn.setAttribute("data-scroll", "");
+		btn.classList.add(`anime-${getRandomInt(4)+1}`)
 		btn.setAttribute("title", "data-scroll");
 
 		if (getRandomInt(3)) {

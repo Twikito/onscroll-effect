@@ -283,15 +283,15 @@ pre[class*="language-"] {
 	opacity: 0;
 	transition: none;
 }
-.demo button.is-outside:nth-child(4n)::before {
+.demo button.is-outside.anime-1::before {
 	transform: translateY(10em);
 }
-.demo button.is-outside:nth-child(4n+1)::before {
+.demo button.is-outside.anime-2::before {
 	transform: translateY(-10em);
 }
-.demo button.is-outside:nth-child(4n+2)::before {
+.demo button.is-outside.anime-3::before {
 	transform: translateX(-10em);
 }
-.demo button.is-outside:nth-child(4n+3)::before {
+.demo button.is-outside.anime-4::before {
 	transform: translateX(10em);
 }
