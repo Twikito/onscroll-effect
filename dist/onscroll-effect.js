@@ -36,6 +36,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		};
 	};
 
+	var isUndefined = function isUndefined(v) {
+		return typeof v === "undefined";
+	};
+
 	var scrollEffect = function scrollEffect() {
 		var nodeList = [].concat(_toConsumableArray(document.querySelectorAll("[data-" + PREFIX + "]")));
 
@@ -46,7 +50,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		warn = false;
 
 		nodeList.filter(function (node) {
-			return typeof node.isRepeating === "undefined" || node.isRepeating;
+			return isUndefined(node.isRepeating) || node.isRepeating;
 		}).forEach(function (node) {
 			var config = {
 				className: node.dataset[PREFIX],
@@ -60,8 +64,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			    scrollOffset = isNaN(config.offset) ? 0 : config.offset,
 			    scrollRepeat = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat);
 
-			node.repeatCount = typeof node.repeatCount === "undefined" ? 0 : node.repeatCount;
-			node.isRepeating = typeof node.isRepeating === "undefined" ? true : node.isRepeating;
+			node.repeatCount = isUndefined(node.repeatCount) ? 0 : node.repeatCount;
+			node.isRepeating = isUndefined(node.isRepeating) ? true : node.isRepeating;
 
 			// if ( has the class AND viewport bottom >= top of object + offset AND viewport top <= bottom of object - offset )
 			if (node.classList.contains(scrollClass) && nodeRect.top + scrollOffset <= window.innerHeight && nodeRect.bottom - scrollOffset >= 0) {

@@ -34,6 +34,8 @@
 		};
 	};
 
+	const isUndefined = v => typeof v === "undefined";
+
 	const scrollEffect = () => {
 		const nodeList = [...document.querySelectorAll(`[data-${PREFIX}]`)];
 
@@ -43,7 +45,7 @@
 		}
 		warn = false;
 
-		nodeList.filter(node => typeof node.isRepeating === "undefined" || node.isRepeating).forEach(node => {
+		nodeList.filter(node => isUndefined(node.isRepeating) || node.isRepeating).forEach(node => {
 			const
 				config = {
 					className: node.dataset[PREFIX],
@@ -57,8 +59,8 @@
 				scrollOffset = isNaN(config.offset) ? 0 : config.offset,
 				scrollRepeat = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat);
 
-			node.repeatCount = typeof node.repeatCount === "undefined" ? 0 : node.repeatCount;
-			node.isRepeating = typeof node.isRepeating === "undefined" ? true : node.isRepeating;
+			node.repeatCount = isUndefined(node.repeatCount) ? 0 : node.repeatCount;
+			node.isRepeating = isUndefined(node.isRepeating) ? true : node.isRepeating;
 
 			// if ( has the class AND viewport bottom >= top of object + offset AND viewport top <= bottom of object - offset )
 			if (
