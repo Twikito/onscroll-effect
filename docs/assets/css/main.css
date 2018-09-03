@@ -14,8 +14,7 @@ body {
 }
 
 a,
-button,
-.baseline {
+button {
 	transition: .15s ease-out;
 }
 
@@ -32,16 +31,17 @@ abbr {
 	padding: 2.5% 0;
 	background: var(--theme) linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.15) 100%);
 	color: white;
-	transition: background-color .3s ease-in-out;
 }
 
 h1, h2, h3, h4 {
 	margin: .5em 0;
 	font-family: 'Roboto Slab'; font-weight: 500;
+}
+
+h2, h3 {
 	transition: 1s ease-out;
 }
 
-h1.is-outside,
 h2.is-outside,
 h3.is-outside {
 	transform: translateX(1em);
