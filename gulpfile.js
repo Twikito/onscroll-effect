@@ -66,7 +66,7 @@ const tasks = [], list = [
 	gulp.task(name, () => {
 		return gulp.src('src/index.js')
 			.pipe( rename(file) )
-			.pipe( runIf(name.includes('es5'), babel, { presets: ['env'] }) )
+			.pipe( runIf(name.includes('es5'), babel, { presets: ['@babel/env'] }) )
 			.pipe( runIf(name.includes('min'), terser) )
 			.pipe( header(head.value, head.options) )
 			.pipe( gulp.dest('dist') );
