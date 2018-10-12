@@ -1,6 +1,6 @@
 {
 	"name": "onscroll-effect",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "A tiny JavaScript library to enable CSS animations when user scrolls.",
 	"main": "dist/onscroll-effect.es6.js",
 	"scripts": {
