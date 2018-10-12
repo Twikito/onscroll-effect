@@ -98,13 +98,15 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
    */
 
 
-  document.addEventListener("readystatechange", function (e) {
+  var initHandler = function initHandler() {
     scrollEffect();
 
     if (document.readyState === "complete") {
-      e.target.removeEventListener(e.type, arguments.callee);
+      document.removeEventListener("readystatechange", initHandler);
     }
-  });
+  };
+
+  document.addEventListener("readystatechange", initHandler);
   window.addEventListener("scroll", debounce(scrollEffect, 10), true);
 
   window.initOnScrollEffect = function () {

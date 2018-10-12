@@ -85,17 +85,18 @@
 	 * Trigger two times – on each readystatechange – to animate elements already in viewport:
 	 * First, add the class, then remove it, so you can see the animation
 	 */
-	document.addEventListener("readystatechange", function (e) {
+	const initHandler = () => {
 		scrollEffect();
 		if (document.readyState === "complete") {
-			e.target.removeEventListener(e.type, arguments.callee);
+			document.removeEventListener("readystatechange", initHandler);
 		}
-	});
+	};
+	document.addEventListener("readystatechange", initHandler);
 
 	window.addEventListener("scroll", debounce(scrollEffect, 10), true);
 
 	window.initOnScrollEffect = () => {
 		scrollEffect();
 		scrollEffect();
-	}
+	};
 })();
