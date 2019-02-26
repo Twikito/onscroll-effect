@@ -6,8 +6,6 @@
 	"scripts": {
 		"lint": "eslint src",
 		"lint:fix": "eslint --fix src",
-		"prettier": "prettier --debug-check src/**/*.js",
-		"prettier:write": "prettier --write src/**/*.js",
 		"test": "npm run lint",
 		"clean": "del-cli --force dist",
 		"build": "npm run clean && gulp"
