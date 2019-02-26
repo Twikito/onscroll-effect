@@ -1,5 +1,5 @@
 const
-	gulp = require('gulp'),
+	{ src, dest, parallel } = require('gulp'),
 	header = require('gulp-header'),
 	rename = require("gulp-rename"),
 	terser = require('gulp-terser'),
@@ -40,7 +40,7 @@ const getName = (isMin = false, type = '') => {
 
 const runIf = (condition, task, ...opt) => (condition ? task : gutil.noop)(...opt);
 
-const tasks = [], list = [
+const mapTasks = [
 	{
 		name: 'es6',
 		head: getBanner(),
@@ -61,16 +61,20 @@ const tasks = [], list = [
 		head: getBanner('short'),
 		file: getName(true)
 	}
-].forEach(({ name, head, file }) => {
-	tasks.push(name);
-	gulp.task(name, () => {
-		return gulp.src('src/index.js')
-			.pipe( rename(file) )
-			.pipe( runIf(name.includes('es5'), babel, { presets: ['@babel/env'] }) )
-			.pipe( runIf(name.includes('min'), terser) )
-			.pipe( header(head.value, head.options) )
-			.pipe( gulp.dest('dist') );
-	});
-});
+].reduce((acc, { name, head, file }) => {
+	return {
+		...acc,
+		[name]() {
+			return src('src/index.js')
+				.pipe( rename(file) )
+				.pipe( runIf(name.includes('es5'), babel, { presets: ['@babel/env'] }) )
+				.pipe( runIf(name.includes('min'), terser) )
+				.pipe( header(head.value, head.options) )
+				.pipe( dest('dist') );
+		}
+	}
+}, {});
 
-gulp.task('default', tasks);
+const tasks = Object.keys(mapTasks).map((key) => mapTasks[key]);
+
+exports.default = parallel(...tasks);
