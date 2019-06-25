@@ -31,7 +31,7 @@
 		"@babel/core": "^7.3.4",
 		"@babel/preset-env": "^7.3.4",
 		"del-cli": "^2.0.0",
-		"eslint": "^5.14.1",
+		"eslint": "^6.0.1",
 		"gulp": "^4.0.0",
 		"gulp-babel": "^8.0.0",
 		"gulp-header": "^2.0.7",
