@@ -6,6 +6,7 @@ This library toggles a class to an element when it appears on viewport when user
 
 Note that in order to not be JavaScript dependant, this library add the class when the element __is outside__ of the viewport. This way, if you have a JS error, it's the default state that will appears on scroll.
 
+[![npm version](https://badge.fury.io/js/onscroll-effect.svg?style=flat-square)](https://badge.fury.io/js/onscroll-effect)
 [![dependencies Status](https://david-dm.org/Twikito/onscroll-effect/status.svg?style=flat-square)](https://david-dm.org/Twikito/onscroll-effect)
 [![devDependencies Status](https://david-dm.org/Twikito/onscroll-effect/dev-status.svg?style=flat-square)](https://david-dm.org/Twikito/onscroll-effect?type=dev)
 [![GitHub license](https://img.shields.io/github/license/Twikito/onscroll-effect.svg?style=flat-square)](https://github.com/Twikito/onscroll-effect/blob/master/LICENSE)
