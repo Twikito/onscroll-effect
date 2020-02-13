@@ -4,7 +4,7 @@
  * A tiny JavaScript library to enable CSS animations when user scrolls.
  *
  * @author Matthieu Bué <https://twikito.com>
- * @version v1.1.6
+ * @version v1.2.0
  * @link https://twikito.github.io/onscroll-effect/
  * @license MIT
  * -------------------------------------------------------------------
@@ -51,16 +51,16 @@
 					className: node.dataset[PREFIX],
 					repeat: node.dataset[PREFIX + "Repeat"],
 					offset: Number(node.dataset[PREFIX + "Offset"]),
-          count: Number(node.dataset[PREFIX + "Count"]),
-          reverse: node.dataset[PREFIX + "Reverse"]
+					count: Number(node.dataset[PREFIX + "Count"]),
+					reverse: node.dataset[PREFIX + "Reverse"]
 				},
-        nodeRect = node.getBoundingClientRect(),
-        scrollReverse = config.reverse === "true",
+				nodeRect = node.getBoundingClientRect(),
+				scrollReverse = config.reverse === "true",
 				scrollClass = config.className || (scrollReverse ? "is-inside" : "is-outside"),
 				scrollInfiniteRepeat = config.repeat === "true",
 				scrollOffset = isNaN(config.offset) ? 0 : config.offset,
-        scrollRepeat = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat),
-        scrollClassToggled = scrollReverse ? !node.classList.contains(scrollClass) : node.classList.contains(scrollClass);
+				scrollRepeat = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat),
+				scrollClassToggled = scrollReverse ? !node.classList.contains(scrollClass) : node.classList.contains(scrollClass);
 
 			node.repeatCount = isUndefined(node.repeatCount) ? 0 : node.repeatCount;
 			node.isRepeating = isUndefined(node.isRepeating) ? true : node.isRepeating;

@@ -4,7 +4,7 @@
  * A tiny JavaScript library to enable CSS animations when user scrolls.
  *
  * @author Matthieu Bué <https://twikito.com>
- * @version v1.1.6
+ * @version v1.2.0
  * @link https://twikito.github.io/onscroll-effect/
  * @license MIT
  * -------------------------------------------------------------------
