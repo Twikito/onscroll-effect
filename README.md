@@ -4,7 +4,7 @@ __A tiny JavaScript library to enable CSS animations when user scrolls.__
 
 This library toggles a class to an element when it appears on viewport when user scrolls. It lets you build CSS transitions or animations launched only when user scrolls on it. Only set a few HTML attributes, and code the rest with your CSS skills.
 
-Note that in order to not be JavaScript dependant, this library add the class when the element __is outside__ of the viewport. This way, if you have a JS error, it's the default state that will appears on scroll.
+Note that in order to not be JavaScript dependant, this library add the class when the element __is outside__ of the viewport. This way, if you have a JS error, it's the default state that will appears on scroll. An option exists to reverse this pattern, that is, to remove a class when the element is outside the viewport.
 
 [![npm version](https://badge.fury.io/js/onscroll-effect.svg?style=flat-square)](https://badge.fury.io/js/onscroll-effect)
 [![dependencies Status](https://david-dm.org/Twikito/onscroll-effect/status.svg?style=flat-square)](https://david-dm.org/Twikito/onscroll-effect)

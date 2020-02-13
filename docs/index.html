@@ -60,8 +60,8 @@
 			This library toggles a class to an element when it appears on viewport when user scrolls. It lets you build CSS transitions or animations launched only when user scrolls on it. Only set a few HTML attributes, and code the rest with your CSS skills.
 		</p>
 		<p>
-			Note that in order to not be JavaScript dependant, this library add the class when the element <strong>is outside</strong> of the viewport. This way, if you have a <abbr title="JavaScript">JS</abbr> error, it’s the default state that will appears on scroll.
-		</p>
+			Note that in order to not be JavaScript dependant, this library add the class when the element <strong>is outside</strong> of the viewport. This way, if you have a <abbr title="JavaScript">JS</abbr> error, it’s the default state that will appears on scroll. The alternative is to set data-scroll-reverse, and add the CSS class to your element at the start to avoid JS dependency.
+    </p>
 
 		<div id="download">
 			<a class="button" href="//raw.githubusercontent.com/Twikito/onscroll-effect/master/dist/onscroll-effect.es6.min.js" title="Download onScroll Effect compressed, production version">
@@ -126,6 +126,13 @@
 					</dt>
 					<dd>
 						<p><em>optional</em> — Specify an offset in pixels to take into account from the top and bottom edges of the viewport. <code>0</code> by default if not specified.</p>
+          </dd>
+          
+          <dt>
+						<pre><code>&lt;foo data-scroll-reverse="true"&gt;</code></pre>
+					</dt>
+					<dd>
+						<p><em>optional</em> — The CSS class name is instead <strong>removed</strong> when this element is outside of viewport. The default class name is <code>is-inside</code> if data-scroll is empty.</p>
 					</dd>
 				</dl>
 			</section>

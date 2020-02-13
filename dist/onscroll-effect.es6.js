@@ -51,24 +51,27 @@
 					className: node.dataset[PREFIX],
 					repeat: node.dataset[PREFIX + "Repeat"],
 					offset: Number(node.dataset[PREFIX + "Offset"]),
-					count: Number(node.dataset[PREFIX + "Count"])
+          count: Number(node.dataset[PREFIX + "Count"]),
+          reverse: node.dataset[PREFIX + "Reverse"]
 				},
-				nodeRect = node.getBoundingClientRect(),
-				scrollClass = config.className || "is-outside",
+        nodeRect = node.getBoundingClientRect(),
+        scrollReverse = config.reverse === "true",
+				scrollClass = config.className || (scrollReverse ? "is-inside" : "is-outside"),
 				scrollInfiniteRepeat = config.repeat === "true",
 				scrollOffset = isNaN(config.offset) ? 0 : config.offset,
-				scrollRepeat = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat);
+        scrollRepeat = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat),
+        scrollClassToggled = scrollReverse ? !node.classList.contains(scrollClass) : node.classList.contains(scrollClass);
 
 			node.repeatCount = isUndefined(node.repeatCount) ? 0 : node.repeatCount;
 			node.isRepeating = isUndefined(node.isRepeating) ? true : node.isRepeating;
 
 			// if ( has the class AND viewport bottom >= top of object + offset AND viewport top <= bottom of object - offset )
 			if (
-				node.classList.contains(scrollClass) &&
+				scrollClassToggled &&
 				nodeRect.top + scrollOffset <= window.innerHeight &&
 				nodeRect.bottom - scrollOffset >= 0
 			) {
-				node.classList.remove(scrollClass);
+				node.classList[scrollReverse ? "add" : "remove"](scrollClass);
 				node.repeatCount += 1;
 				node.isInViewport = true;
 				node.dispatchEvent(INSIDE_VP);
@@ -80,12 +83,12 @@
 
 			// if ( first scroll OR ( ( infinite OR less that max ) AND ( has not the class AND ouside of viewport ) ) )
 			if (
-				(!node.classList.contains(scrollClass) && node.repeatCount === 0) ||
+				(!scrollClassToggled && node.repeatCount === 0) ||
 				((scrollInfiniteRepeat || node.repeatCount < scrollRepeat) &&
-					(!node.classList.contains(scrollClass) &&
+					(!scrollClassToggled &&
 						(nodeRect.top > window.innerHeight || nodeRect.bottom < 0)))
 			) {
-				node.classList.add(scrollClass);
+				node.classList[scrollReverse ? "remove" : "add"](scrollClass);
 				node.isInViewport = false;
 				node.dispatchEvent(OUTSIDE_VP);
 				return node.isInViewport;
