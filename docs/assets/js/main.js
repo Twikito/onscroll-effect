@@ -43,4 +43,8 @@
 			});
 		});
 
+	// ---
+
+	console.log("╭─╮\n│││ on\n│ │ Scroll\n│ │ Effect\n╰─╯");
+
 })();
