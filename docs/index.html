@@ -53,29 +53,32 @@
 	</header>
 
 	<main class="wrapper">
-		<p class="color-theme text-lg">
-			<strong>A tiny JavaScript library to enable <abbr title="Cascading Style Sheets">CSS</abbr> animations when user scrolls.</strong>
-		</p>
-		<p>
-			This library toggles a class to an element when it appears on viewport when user scrolls. It lets you build CSS transitions or animations launched only when user scrolls on it. Only set a few HTML attributes, and code the rest with your CSS skills.
-		</p>
-		<p>
-			Note that in order to not be JavaScript dependant, as default behaviour, this library add the class when the element <strong>is outside</strong> of the viewport. This way, if you have any JavaScript issue, the default state of your element will appears on scroll.<br>
-			Sometimes, you may need the opposite behaviour, i.e. adding a class when the element is inside the viewport. There is <a href="#reverse">an option for that</a>.
-		</p>
 
 		<div id="download">
-			<a class="button" href="//raw.githubusercontent.com/Twikito/onscroll-effect/master/dist/onscroll-effect.es6.min.js" title="Download onScroll Effect compressed, production version">
-				<span class="big"><strong>Download</strong> &ndash; 1,85ko</span><br>
-				<small>Compressed, for production</small>
-			</a>
-			<a class="button" href="//raw.githubusercontent.com/Twikito/onscroll-effect/master/dist/onscroll-effect.es6.js" title="Download onScroll Effect uncompressed, development version">
-				<span class="big"><strong>Download</strong> &ndash; 4,13ko</span><br>
-				<small>Uncompressed, for development</small>
-			</a>
-			<a class="button button--grey" href="//github.com/Twikito/onscroll-effect" title="View onScroll Effect on GitHub">
-				View on GitHub
-			</a>
+			<p class="color-theme text-lg">
+				<strong>A tiny JavaScript library to enable <abbr title="Cascading Style Sheets">CSS</abbr> animations when user scrolls.</strong>
+			</p>
+			<p>
+				This library allows you to <strong>toggle one or more classes</strong> on an element when it appears inside the viewport <strong>when the user scrolls</strong> the page. It enables you to build <strong><abbr title="Cascading Style Sheets">CSS</abbr> transitions or animations</strong> launched only when the user scrolls the page to the element. All you have to do is set a few <abbr title="HyperText Markup Language">HTML</abbr> attributes, and code the rest with your <abbr title="Cascading Style Sheets">CSS</abbr> skills.
+			</p>
+
+			<div class="download-links">
+				<a class="button" href="//raw.githubusercontent.com/Twikito/onscroll-effect/master/dist/onscroll-effect.es6.min.js" title="Download onScroll Effect compressed, production version">
+					<strong class="big">Download compressed</strong><br>
+					<span data-file-size="es6.min.js">&hellip;</span>&nbsp;KB <small>&ndash; <span data-file-size="es6.min.js.gzip">&hellip;</span>&nbsp;KB gzipped</small>
+				</a>
+				<a class="button" href="//raw.githubusercontent.com/Twikito/onscroll-effect/master/dist/onscroll-effect.es6.js" title="Download onScroll Effect uncompressed, development version">
+					<strong class="big">Download uncompressed</strong><br>
+					<span data-file-size="es6.js">&hellip;</span>&nbsp;KB <small>&ndash; <span data-file-size="es6.js.gzip">&hellip;</span>&nbsp;KB gzipped</small>
+				</a>
+				<a class="button button--grey" href="//github.com/Twikito/onscroll-effect" title="View onScroll Effect on GitHub">
+					<svg width="1em" class="github" viewBox="0 0 496 512" aria-hidden="true" focusable="false">
+						<title>GitHub</title>
+						<path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/>
+					</svg>
+					<span>View on GitHub</span>
+				</a>
+			</div>
 		</div>
 
 		<hr>
@@ -85,15 +88,51 @@
 				<a href="#demo">Demo</a>
 			</h2>
 			<p>
-				The following fake elements are generated randomly just to illustrate <a href="#how-to-use"">what you can do with this library</a>.
+				The following fake elements are randomly generated, only to illustrate <a href="#how-to-use">what you can do with this library</a>.
 			</p>
 			<p>
-				The circles are set to be animated several or infinite times, the squares just once. Of course, the animations defined manually are for example. You can make whatever you want in your CSS.
+				The circles are set to be animated several or infinite times, the squares just once. Of course, the animations defined manually are only for example. You can make whatever you want in your <abbr title="Cascading Style Sheets">CSS</abbr>.
 			</p>
 			<p>
-				Hover any of them to see their settings in the tooltip. If you want to follow one when you scroll up and down, just click on it.
+				Hover over any of them to see their settings in the tooltip. If you want to follow one when you scroll up and down the page, just click on it.
 			</p>
 			<div class="demo" aria-hidden="true"></div>
+		</section>
+
+		<hr>
+
+		<section class="language-bash">
+			<h2 id="quick-start" data-scroll data-scroll-repeat="true">
+				<a href="#quick-start">Quick start</a>
+			</h2>
+			<section>
+				<h3 id="quick-start-manually" data-scroll data-scroll-repeat="true">
+					<a href="#quick-start-manually">Manually</a>
+				</h3>
+				<ul>
+					<li><a href="#download">Direct download</a></li>
+					<li>Or choose another version: <a href="//github.com/Twikito/onscroll-effect/tree/master/dist">ES5 or ES6</a>.</li>
+				</ul>
+				<p>Then, add the script into your page:</p>
+				<pre><code class="language-html">&lt;script src="./your-path/onscroll-effect.es6.min.js"&gt;&lt;/script&gt;</code></pre>
+				<p>and it’s done.</p>
+			</section>
+			<section>
+				<h3 id="quick-start-npm" data-scroll data-scroll-repeat="true">
+					<a href="#quick-start-npm">With npm</a>
+				</h3>
+				<p>Install with <a href="//www.npmjs.com/package/onscroll-effect">npm</a>:</p>
+				<pre><code>npm install onscroll-effect</code></pre>
+				<p>Then import <em>onScroll Effect</em> into your application, inside your main <abbr title="JavaScript">JS</abbr> file:</p>
+				<pre><code class="language-js">import "onscroll-effect";</code></pre>
+ 				<p>and the magic happens!</p>
+			</section>
+			<section>
+				<h3 id="compatibility" data-scroll data-scroll-repeat="true">
+					<a href="#compatibility">Compatibility</a>
+				</h3>
+				<p>In addition of using <a href="//github.com/Twikito/onscroll-effect/blob/master/dist/onscroll-effect.min.js">ES5 version</a>, compatibility for Internet Explorer is provided by <a href="//polyfill.io/">polyfill.io</a> which supports back to <abbr title="Internet Explorer">IE</abbr> 7. And before you ask, yes, you can <a href="//github.com/Financial-Times/polyfill-service#running-locally">run it locally</a>.</p>
+			</section>
 		</section>
 
 		<hr>
@@ -102,6 +141,15 @@
 			<h2 id="how-to-use" data-scroll data-scroll-repeat="true">
 				<a href="#how-to-use">How to use</a>
 			</h2>
+			<p>
+				Note that as default behaviour, this library add a class list when the element <strong>is outside of the viewport</strong>.
+			</p>
+			<p>
+				That is in order to avoid a broken page if your JavaScript is in error. This way, if you have any JavaScript issue, the default state of your element will appears on scroll.
+			</p>
+			<p>
+				Sometimes, you may need the opposite behaviour, i.e. adding a class when the element is inside the viewport. There is <a href="#reverse">an option for that</a>.
+			</p>
 
 			<section class="language-html">
 				<h3 id="basics" data-scroll data-scroll-repeat="true">
@@ -109,39 +157,43 @@
 				</h3>
 				<dl>
 					<dt id="class">
-						<pre><code>&lt;foo data-scroll="class-name"&gt;</code></pre>
+						<pre><code>&lt;foo data-scroll="class"&gt;</code></pre>
 					</dt>
 					<dd>
-						<p>A CSS class name, added when this element is outside of viewport, <code>is-outside</code> if empty.</p>
+						<p><em>required</em> — A <abbr title="Cascading Style Sheets">CSS</abbr> class or list, added when this element is outside of the viewport.</p>
+						<p>You can fill it from none to as many classes as you want, so it's compatible with any <abbr title="Cascading Style Sheets">CSS</abbr> framework. <br>If you leave it empty, the class <code>is-outside</code> will be used by default.</p>
 					</dd>
 
 					<dt id="repeat">
 						<pre><code>&lt;foo data-scroll data-scroll-repeat=" false | true | &lt;number&gt; "&gt;</code></pre>
 					</dt>
 					<dd>
-						<p><em>optional</em> — Specify if the class will be toggled each time the element appears in viewport or not, or a maximum number of iteration. <code>false</code> as default if not specified.</p>
+						<p><em>optional</em> — Specify if the class will be toggled each time the element appears in the viewport, or not, or a maximum number of iteration.</p>
+						<p>If unset or left empty, <code>false</code> by default.</p>
 					</dd>
 
 					<dt id="offset">
 						<pre><code>&lt;foo data-scroll data-scroll-offset=" &lt;number&gt; "&gt;</code></pre>
 					</dt>
 					<dd>
-						<p><em>optional</em> — Specify an offset in pixels to take into account from the top and bottom edges of the viewport. <code>0</code> as default if not specified.</p>
+						<p><em>optional</em> — Specify an offset, in pixels, to take into account from the top and bottom edges of the viewport.</p>
+						<p>If unset or left empty, <code>0</code> by default.</p>
 					</dd>
 
 					<dt id="reverse">
 						<pre><code>&lt;foo data-scroll data-scroll-reverse="true"&gt;</code></pre>
 					</dt>
 					<dd>
-						<p><em>optional</em> — Instead of adding the class when the element is outside of the viewport, reverse this behaviour and add the class when the element is inside the viewport, <code>is-inside</code> class name as default if <code>data-scroll</code> is empty.</p>
-						<p>In this case, you will probably need to add the class to your element as default in your code to avoid JavaScript dependency.</p>
+						<p><em>optional</em> — Instead of adding the class list when the element is outside of the viewport, reverse this behaviour and add the class when the element <strong>comes inside the viewport</strong>.</p>
+						<p>If the attribute <code>data-scroll</code> is left empty, the class <code>is-inside</code> will be used by default.</p>
+						<p>In this case, you will probably need to add the class by default onto your element in your code to avoid JavaScript dependency.</p>
 					</dd>
 				</dl>
 			</section>
 
 			<section class="language-html">
 				<h3 id="examples" data-scroll data-scroll-repeat="true">
-					<a href="#examples">Examples</a>
+					<a href="#examples">Examples of use</a>
 				</h3>
 				<pre><code>
 &lt;!-- Toggle '.is-outside' class when outside of viewport, just once --&gt;
@@ -163,7 +215,7 @@
 				<h3 id="recommendation" data-scroll data-scroll-repeat="true">
 					<a href="#recommendation">Recommendation</a>
 				</h3>
-				<p>Most of the time, when you build a transition or an animation on an element, you don’t need it to be played backward when this element goes outside of the viewport. That’s why I recommend to use these few lines of CSS:</p>
+				<p>Most of the time, when you build a transition or an animation on an element, you don’t need it to be played backward when this element goes outside of the viewport. That’s why I recommend to use these few lines of <abbr title="Cascading Style Sheets">CSS</abbr>:</p>
 				<pre><code class="language-css">[data-scroll].is-outside {
 	transition: none;
 	animation: none;
@@ -182,60 +234,55 @@
 					<pre><code>&lt;html data-onscroll-effect-custom-prefix="my-prefix"&gt;</code></pre>
 					<p>It will so be set to all attributes like <code>data-my-prefix</code>.</p>
 				</section>
-				<section>
-					<h4 id="asynchronous">
-						<a href="#asynchronous">Asynchronous needs</a>
+			</section>
+			<section class="language-js">
+				<h3 id="api" data-scroll data-scroll-repeat="true">
+					<a href="#api">API</a>
+				</h3>
+				<section id="api-initialization">
+					<h4>
+						<a href="#api-initialization">initialization</a>
 					</h4>
-					<p>For asynchronous needs, you can initiate the magic with:</p>
-					<pre><code class="language-js">window.initOnScrollEffect();</code></pre>
+					<p>The scroll event handler: initialize all elements to be ready to animate on scroll.</p>
+					<pre><code>window.onScrollEffect();</code></pre>
+					<p>No parameter. No return.</p>
+				</section>
+				<section id="api-isInsideViewport">
+					<h4>
+						<a href="#api-isInsideViewport">isInsideViewport</a>
+					</h4>
+					<p>Get if an element is currently inside the viewport, taking into account the set offset.</p>
+					<pre><code>window.onScrollEffect.isInsideViewport( Node );</code></pre>
+					<p>Takes a <i>Node</i> as parameter. Returns a <i>Boolean</i>.</p>
+				</section>
+				<section id="api-isRepeating">
+					<h4>
+						<a href="#api-isRepeating">isRepeating</a>
+					</h4>
+					<p>Get if an element is still repeating its animation on scroll.</p>
+					<pre><code>window.onScrollEffect.isRepeating( Node );</code></pre>
+					<p>Takes a <i>Node</i> as parameter. Returns a <i>Boolean</i>.</p>
+				</section>
+				<section id="api-repeatingCount">
+					<h4>
+						<a href="#api-repeatingCount">repeatingCount</a>
+					</h4>
+					<p>Get the count of animation iteration already made by an element.</p>
+					<pre><code>window.onScrollEffect.repeatingCount( Node );</code></pre>
+					<p>Takes a <i>Node</i> as parameter. Returns a <i>Number</i>.</p>
 				</section>
 				<section>
 					<h4 id="hooks">
 						<a href="#hooks">Hooks</a>
 					</h4>
-					<p>You can also add some hooks: each element with <code>data-scroll</code> attribute fires an <code>insideViewport</code> event when it appears in viewport, and an <code>outsideViewport</code> event when it disappears from viewport. You can add event listeners on these events, and also test the state of the element with <code>isRepeating</code>, <code>repeatCount</code> and <code>isInViewport</code> properties. For example:</p>
-					<pre><code class="language-js">document.querySelector("#myElement").addEventListener("insideViewport", (event) => {
-	console.log(`Is still repeating: ${event.target.isRepeating}`);
+					<p>You can also add some hooks: each element with <code>data-scroll</code> attribute fires an <code>insideViewport</code> event when it appears in viewport, and an <code>outsideViewport</code> event when it disappears from viewport, so You can add event listeners on these events.</p>
+					<p>For example:</p>
+					<pre><code>document.querySelector("#myElement").addEventListener("insideViewport", (event) => {
+	console.log(`Count: ${window.onScrollEffect.repeatingCount(event.target}`);
 }, false);</code></pre>
 				</section>
 			</section>
 
-		</section>
-
-		<hr>
-
-		<section class="language-bash">
-			<h2 id="quick-start" data-scroll data-scroll-repeat="true">
-				<a href="#quick-start">Quick start</a>
-			</h2>
-			<section>
-				<h3 id="quick-start-manually" data-scroll data-scroll-repeat="true">
-					<a href="#quick-start-manually">Manually</a>
-				</h3>
-				<ul>
-					<li><a href="#download">Direct download</a></li>
-					<li>Choose another version: <a href="//github.com/Twikito/onscroll-effect/tree/master/dist">ES5 or ES6</a>.</li>
-				</ul>
-				<p>Then, <strong>add the script into your page</strong>, and it’s done.</p>
-			</section>
-			<section>
-				<h3 id="quick-start-npm" data-scroll data-scroll-repeat="true">
-					<a href="#quick-start-npm">With npm</a>
-				</h3>
-				<p>Install with <a href="//www.npmjs.com/package/onscroll-effect">npm</a>:</p>
-				<pre><code>npm install onscroll-effect</code></pre>
-				<p>Then load <em>onScroll Effect</em> into your application, inside your main <abbr title="JavaScript">JS</abbr> file:</p>
-				<pre><code class="language-js">import "onscroll-effect";
-// or
-require("onscroll-effect");</code></pre>
- 				<p>and the magic happens!</p>
-			</section>
-			<section>
-				<h3 id="compatibility" data-scroll data-scroll-repeat="true">
-					<a href="#compatibility">Compatibility</a>
-				</h3>
-				<p>In addition of using <a href="//github.com/Twikito/onscroll-effect/blob/master/dist/onscroll-effect.min.js">ES5 version</a>, compatibility for Internet Explorer is provided by <a href="//polyfill.io/">polyfill.io</a> which supports back to <abbr title="Internet Explorer">IE</abbr> 7. And before you ask, yes, you can <a href="//github.com/Financial-Times/polyfill-service#running-locally">run it locally</a>.</p>
-			</section>
 		</section>
 
 		<hr>
@@ -265,7 +312,7 @@ require("onscroll-effect");</code></pre>
 		</div>
 	</footer>
 
-	<script src="https://rawgit.com/Twikito/onscroll-effect/master/dist/onscroll-effect.es6.min.js"></script>
+	<script src="../dist/onscroll-effect.es6.js"></script>
 	<script src="assets/js/prism.js"></script>
 	<script src="assets/js/main.js"></script>
 </body>

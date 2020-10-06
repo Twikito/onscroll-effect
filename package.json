@@ -2,14 +2,15 @@
 	"name": "onscroll-effect",
 	"version": "1.2.1",
 	"description": "A tiny JavaScript library to enable CSS animations when user scrolls.",
-	"main": "dist/onscroll-effect.es6.js",
+	"main": "src/index.js",
 	"scripts": {
+		"filesize-for-doc": "node tasks/generate-file-size.js",
 		"start-doc": "browser-sync start --server --files 'docs/**/*.*' --startPath '/docs'",
 		"lint": "eslint src",
 		"lint:fix": "eslint --fix src",
 		"test": "npm run lint",
 		"clean": "del-cli --force dist",
-		"build": "npm run clean && gulp"
+		"build": "npm run clean && gulp && npm run filesize-for-doc"
 	},
 	"repository": {
 		"type": "git",
@@ -39,6 +40,7 @@
 		"gulp-header": "^2.0.9",
 		"gulp-rename": "^2.0.0",
 		"gulp-terser": "^1.1.7",
-		"gulp-util": "^3.0.8"
+		"gulp-util": "^3.0.8",
+		"gzip-size": "^5.1.1"
 	}
 }

@@ -4,7 +4,7 @@
 
 	const container = document.querySelector(".demo");
 
-	for (let i = 0; i <= 97; i++) {
+	for (let i = 0; i <= 27; i++) {
 
 		let btn = document.createElement("button");
 
@@ -31,5 +31,16 @@
 
 		container.appendChild(btn);
 	}
+
+	// ---
+
+	fetch('filesize.json')
+		.then(response => response.json())
+		.then(json => {
+			['es6.min.js', 'es6.js'].forEach(element => {
+				document.querySelector(`[data-file-size='${element}']`).innerHTML = Math.round(json[element].default/10)/100;
+				document.querySelector(`[data-file-size='${element}.gzip']`).innerHTML = Math.round(json[element].gzipped/10)/100;
+			});
+		});
 
 })();
