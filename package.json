@@ -4,6 +4,7 @@
 	"description": "A tiny JavaScript library to enable CSS animations when user scrolls.",
 	"main": "dist/onscroll-effect.es6.js",
 	"scripts": {
+		"start-doc": "browser-sync start --server --files 'docs/**/*.*' --startPath '/docs'",
 		"lint": "eslint src",
 		"lint:fix": "eslint --fix src",
 		"test": "npm run lint",
@@ -30,6 +31,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.6.4",
 		"@babel/preset-env": "^7.6.3",
+		"browser-sync": "^2.26.12",
 		"del-cli": "^3.0.0",
 		"eslint": "^7.9.0",
 		"gulp": "^4.0.0",
