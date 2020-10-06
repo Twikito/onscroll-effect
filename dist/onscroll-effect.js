@@ -28,7 +28,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   var INSIDE_VP = new Event("insideViewport"),
       OUTSIDE_VP = new Event("outsideViewport"),
       PREFIX = document.documentElement.getAttribute("data-onscroll-effect-custom-prefix") || "scroll";
-  var warn = false; // Debounce function: https://davidwalsh.name/javascript-debounce-function
+  var warn = false;
+  /*
+   * Debounce function: https://davidwalsh.name/javascript-debounce-function
+   */
 
   var debounce = function debounce(func, wait, immediate) {
     var timeout;
@@ -43,10 +46,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (immediate && !timeout) Reflect.apply(func, context, args);
     };
   };
+  /*
+   * Add a namespace to a property
+   */
+
+
+  var namespacedProp = function namespacedProp(property) {
+    return "onscrollEffect_".concat(property);
+  };
+  /*
+   * Test if undefined
+   */
+
 
   var isUndefined = function isUndefined(v) {
     return typeof v === "undefined";
   };
+  /*
+   * scroll effect handler
+   */
+
 
   var scrollEffect = function scrollEffect() {
     var nodeList = _toConsumableArray(document.querySelectorAll("[data-".concat(PREFIX, "]")));
@@ -58,44 +77,53 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     warn = false;
     nodeList.filter(function (node) {
-      return isUndefined(node.isRepeating) || node.isRepeating;
+      return isUndefined(node[namespacedProp('isRepeating')]) || node[namespacedProp('isRepeating')];
     }).forEach(function (node) {
       var config = {
-        className: node.dataset[PREFIX],
+        className: node.dataset[PREFIX].split(' ').filter(Boolean),
         repeat: node.dataset[PREFIX + "Repeat"],
         offset: Number(node.dataset[PREFIX + "Offset"]),
         count: Number(node.dataset[PREFIX + "Count"]),
         reverse: node.dataset[PREFIX + "Reverse"]
       },
           nodeRect = node.getBoundingClientRect(),
-          scrollReverse = config.reverse === "true",
-          scrollClass = config.className || (scrollReverse ? "is-inside" : "is-outside"),
-          scrollInfiniteRepeat = config.repeat === "true",
-          scrollOffset = isNaN(config.offset) ? 0 : config.offset,
-          scrollRepeat = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat),
-          scrollClassToggled = scrollReverse ? !node.classList.contains(scrollClass) : node.classList.contains(scrollClass);
-      node.repeatCount = isUndefined(node.repeatCount) ? 0 : node.repeatCount;
-      node.isRepeating = isUndefined(node.isRepeating) ? true : node.isRepeating; // if ( has the class AND viewport bottom >= top of object + offset AND viewport top <= bottom of object - offset )
+          REVERSE = config.reverse === "true",
+          // Add class list when inside
+      CLASSLIST = config.className.length ? config.className : [REVERSE ? "is-inside" : "is-outside"],
+          INFINITE_REPEAT = config.repeat === "true",
+          OFFSET = isNaN(config.offset) ? 0 : config.offset,
+          REPEAT = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat),
+          HAS_CLASSLIST = !CLASSLIST.filter(function (item) {
+        return !node.classList.contains(item);
+      }).length;
+      node[namespacedProp('repeatingCount')] = isUndefined(node[namespacedProp('repeatingCount')]) ? 0 : node[namespacedProp('repeatingCount')];
+      node[namespacedProp('isRepeating')] = isUndefined(node[namespacedProp('isRepeating')]) ? true : node[namespacedProp('isRepeating')]; // if ( ((add when outside AND has the class list) OR (add when inside AND has not the class list)) AND viewport bottom >= top of object + offset AND viewport top <= bottom of object - offset )
 
-      if (scrollClassToggled && nodeRect.top + scrollOffset <= window.innerHeight && nodeRect.bottom - scrollOffset >= 0) {
-        node.classList[scrollReverse ? "add" : "remove"](scrollClass);
-        node.repeatCount += 1;
-        node.isInViewport = true;
+      if ((!REVERSE && HAS_CLASSLIST || REVERSE && !HAS_CLASSLIST) && nodeRect.top + OFFSET <= window.innerHeight && nodeRect.bottom - OFFSET >= 0) {
+        var _node$classList;
+
+        (_node$classList = node.classList)[REVERSE ? "add" : "remove"].apply(_node$classList, _toConsumableArray(CLASSLIST));
+
+        node[namespacedProp('repeatingCount')] += 1;
+        node[namespacedProp('isInsideViewport')] = true;
         node.dispatchEvent(INSIDE_VP);
 
-        if (!scrollInfiniteRepeat && node.repeatCount >= scrollRepeat) {
-          node.isRepeating = false;
+        if (!INFINITE_REPEAT && node[namespacedProp('repeatingCount')] >= REPEAT) {
+          node[namespacedProp('isRepeating')] = false;
         }
 
-        return node.isInViewport;
-      } // if ( first scroll OR ( ( infinite OR less that max ) AND ( has not the class AND ouside of viewport ) ) )
+        return true;
+      } // if ( ((add when outside AND has not the class list) OR (add when inside AND has the class list)) AND first scroll OR ( ( infinite OR less that max ) AND ouside of viewport ) )
 
 
-      if (!scrollClassToggled && node.repeatCount === 0 || (scrollInfiniteRepeat || node.repeatCount < scrollRepeat) && !scrollClassToggled && (nodeRect.top > window.innerHeight || nodeRect.bottom < 0)) {
-        node.classList[scrollReverse ? "remove" : "add"](scrollClass);
-        node.isInViewport = false;
+      if ((!REVERSE && !HAS_CLASSLIST || REVERSE && HAS_CLASSLIST) && (node[namespacedProp('repeatingCount')] === 0 || (INFINITE_REPEAT || node[namespacedProp('repeatingCount')] < REPEAT) && (nodeRect.top > window.innerHeight || nodeRect.bottom < 0))) {
+        var _node$classList2;
+
+        (_node$classList2 = node.classList)[REVERSE ? "remove" : "add"].apply(_node$classList2, _toConsumableArray(CLASSLIST));
+
+        node[namespacedProp('isInsideViewport')] = false;
         node.dispatchEvent(OUTSIDE_VP);
-        return node.isInViewport;
+        return false;
       }
     });
   };
@@ -114,10 +142,27 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   };
 
   document.addEventListener("readystatechange", initHandler);
-  window.addEventListener("scroll", debounce(scrollEffect, 10), true);
+  /*
+   * Trigger scroll effect handler on scroll, with debounce
+   */
 
-  window.initOnScrollEffect = function () {
+  window.addEventListener("scroll", debounce(scrollEffect, 10), true);
+  /*
+   * Expose methods
+   */
+
+  window.onScrollEffect = Object.assign(function () {
     scrollEffect();
     scrollEffect();
-  };
+  }, {
+    'isRepeating': function isRepeating(node) {
+      return node[namespacedProp('isRepeating')];
+    },
+    'repeatingCount': function repeatingCount(node) {
+      return node[namespacedProp('repeatingCount')];
+    },
+    'isInsideViewport': function isInsideViewport(node) {
+      return node[namespacedProp('isInsideViewport')];
+    }
+  });
 })();
