@@ -6,7 +6,9 @@
 
 	let warn = false;
 
-	// Debounce function: https://davidwalsh.name/javascript-debounce-function
+	/*
+	 * Debounce function: https://davidwalsh.name/javascript-debounce-function
+	 */
 	const debounce = (func, wait, immediate) => {
 		let timeout;
 		return function () {
@@ -22,10 +24,20 @@
 		};
 	};
 
+	/*
+	 * Add a namespace to a property
+	 */
 	const namespacedProp = property => `onscrollEffect_${property}`;
 
+	/*
+	 * Test if undefined
+	 */
 	const isUndefined = v => typeof v === "undefined";
 
+
+	/*
+	 * scroll effect handler
+	 */
 	const scrollEffect = () => {
 		const nodeList = [...document.querySelectorAll(`[data-${PREFIX}]`)];
 
@@ -38,50 +50,54 @@
 		nodeList.filter(node => isUndefined(node[namespacedProp('isRepeating')]) || node[namespacedProp('isRepeating')]).forEach(node => {
 			const
 				config = {
-					className: node.dataset[PREFIX],
+					className: node.dataset[PREFIX].split(' ').filter(Boolean),
 					repeat: node.dataset[PREFIX + "Repeat"],
 					offset: Number(node.dataset[PREFIX + "Offset"]),
 					count: Number(node.dataset[PREFIX + "Count"]),
 					reverse: node.dataset[PREFIX + "Reverse"]
 				},
 				nodeRect = node.getBoundingClientRect(),
-				scrollReverse = config.reverse === "true",
-				scrollClass = config.className || (scrollReverse ? "is-inside" : "is-outside"),
-				scrollInfiniteRepeat = config.repeat === "true",
-				scrollOffset = isNaN(config.offset) ? 0 : config.offset,
-				scrollRepeat = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat),
-				scrollClassToggled = scrollReverse ? !node.classList.contains(scrollClass) : node.classList.contains(scrollClass);
+				REVERSE = config.reverse === "true", // Add class list when inside
+				CLASSLIST = config.className.length ? config.className : [(REVERSE ? "is-inside" : "is-outside")],
+				INFINITE_REPEAT = config.repeat === "true",
+				OFFSET = isNaN(config.offset) ? 0 : config.offset,
+				REPEAT = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat),
+				HAS_CLASSLIST = !CLASSLIST.filter(item => !node.classList.contains(item)).length;
 
-			node[namespacedProp('repeatCount')] = isUndefined(node[namespacedProp('repeatCount')]) ? 0 : node[namespacedProp('repeatCount')];
+			node[namespacedProp('repeatingCount')] = isUndefined(node[namespacedProp('repeatingCount')]) ? 0 : node[namespacedProp('repeatingCount')];
 			node[namespacedProp('isRepeating')] = isUndefined(node[namespacedProp('isRepeating')]) ? true : node[namespacedProp('isRepeating')];
 
-			// if ( has the class AND viewport bottom >= top of object + offset AND viewport top <= bottom of object - offset )
+			// if ( ((add when outside AND has the class list) OR (add when inside AND has not the class list)) AND viewport bottom >= top of object + offset AND viewport top <= bottom of object - offset )
 			if (
-				scrollClassToggled &&
-				nodeRect.top + scrollOffset <= window.innerHeight &&
-				nodeRect.bottom - scrollOffset >= 0
+				(( !REVERSE && HAS_CLASSLIST ) || ( REVERSE && !HAS_CLASSLIST ))
+				&& nodeRect.top + OFFSET <= window.innerHeight
+				&& nodeRect.bottom - OFFSET >= 0
 			) {
-				node.classList[scrollReverse ? "add" : "remove"](scrollClass);
-				node[namespacedProp('repeatCount')] += 1;
-				node[namespacedProp('isInViewport')] = true;
+				node.classList[REVERSE ? "add" : "remove"](...CLASSLIST);
+				node[namespacedProp('repeatingCount')] += 1;
+				node[namespacedProp('isInsideViewport')] = true;
 				node.dispatchEvent(INSIDE_VP);
-				if (!scrollInfiniteRepeat && node[namespacedProp('repeatCount')] >= scrollRepeat) {
+				if (!INFINITE_REPEAT && node[namespacedProp('repeatingCount')] >= REPEAT) {
 					node[namespacedProp('isRepeating')] = false;
 				}
-				return node[namespacedProp('isInViewport')];
+				return true;
 			}
 
-			// if ( first scroll OR ( ( infinite OR less that max ) AND ( has not the class AND ouside of viewport ) ) )
+			// if ( ((add when outside AND has not the class list) OR (add when inside AND has the class list)) AND first scroll OR ( ( infinite OR less that max ) AND ouside of viewport ) )
 			if (
-				(!scrollClassToggled && node[namespacedProp('repeatCount')] === 0) ||
-				((scrollInfiniteRepeat || node[namespacedProp('repeatCount')] < scrollRepeat) &&
-					(!scrollClassToggled &&
-						(nodeRect.top > window.innerHeight || nodeRect.bottom < 0)))
+				(( !REVERSE && !HAS_CLASSLIST ) || ( REVERSE && HAS_CLASSLIST ))
+				&& (
+					node[namespacedProp('repeatingCount')] === 0
+					|| (
+						(INFINITE_REPEAT || node[namespacedProp('repeatingCount')] < REPEAT)
+						&& (nodeRect.top > window.innerHeight || nodeRect.bottom < 0)
+					)
+				)
 			) {
-				node.classList[scrollReverse ? "remove" : "add"](scrollClass);
-				node[namespacedProp('isInViewport')] = false;
+				node.classList[REVERSE ? "remove" : "add"](...CLASSLIST);
+				node[namespacedProp('isInsideViewport')] = false;
 				node.dispatchEvent(OUTSIDE_VP);
-				return node[namespacedProp('isInViewport')];
+				return false;
 			}
 		});
 	};
@@ -98,10 +114,23 @@
 	};
 	document.addEventListener("readystatechange", initHandler);
 
+	/*
+	 * Trigger scroll effect handler on scroll, with debounce
+	 */
 	window.addEventListener("scroll", debounce(scrollEffect, 10), true);
 
-	window.initOnScrollEffect = () => {
-		scrollEffect();
-		scrollEffect();
-	};
+	/*
+	 * Expose methods
+	 */
+	window.onScrollEffect = Object.assign(
+		() => {
+			scrollEffect();
+			scrollEffect();
+		},
+		{
+			'isRepeating': node => node[namespacedProp('isRepeating')],
+			'repeatingCount': node => node[namespacedProp('repeatingCount')],
+			'isInsideViewport': node => node[namespacedProp('isInsideViewport')]
+		}
+	);
 })();
