@@ -22,6 +22,8 @@
 		};
 	};
 
+	const namespacedProp = property => `onscrollEffect_${property}`;
+
 	const isUndefined = v => typeof v === "undefined";
 
 	const scrollEffect = () => {
@@ -33,7 +35,7 @@
 		}
 		warn = false;
 
-		nodeList.filter(node => isUndefined(node.isRepeating) || node.isRepeating).forEach(node => {
+		nodeList.filter(node => isUndefined(node[namespacedProp('isRepeating')]) || node[namespacedProp('isRepeating')]).forEach(node => {
 			const
 				config = {
 					className: node.dataset[PREFIX],
@@ -50,8 +52,8 @@
 				scrollRepeat = isNaN(Number(config.repeat)) ? 1 : Number(config.repeat),
 				scrollClassToggled = scrollReverse ? !node.classList.contains(scrollClass) : node.classList.contains(scrollClass);
 
-			node.repeatCount = isUndefined(node.repeatCount) ? 0 : node.repeatCount;
-			node.isRepeating = isUndefined(node.isRepeating) ? true : node.isRepeating;
+			node[namespacedProp('repeatCount')] = isUndefined(node[namespacedProp('repeatCount')]) ? 0 : node[namespacedProp('repeatCount')];
+			node[namespacedProp('isRepeating')] = isUndefined(node[namespacedProp('isRepeating')]) ? true : node[namespacedProp('isRepeating')];
 
 			// if ( has the class AND viewport bottom >= top of object + offset AND viewport top <= bottom of object - offset )
 			if (
@@ -60,26 +62,26 @@
 				nodeRect.bottom - scrollOffset >= 0
 			) {
 				node.classList[scrollReverse ? "add" : "remove"](scrollClass);
-				node.repeatCount += 1;
-				node.isInViewport = true;
+				node[namespacedProp('repeatCount')] += 1;
+				node[namespacedProp('isInViewport')] = true;
 				node.dispatchEvent(INSIDE_VP);
-				if (!scrollInfiniteRepeat && node.repeatCount >= scrollRepeat) {
-					node.isRepeating = false;
+				if (!scrollInfiniteRepeat && node[namespacedProp('repeatCount')] >= scrollRepeat) {
+					node[namespacedProp('isRepeating')] = false;
 				}
-				return node.isInViewport;
+				return node[namespacedProp('isInViewport')];
 			}
 
 			// if ( first scroll OR ( ( infinite OR less that max ) AND ( has not the class AND ouside of viewport ) ) )
 			if (
-				(!scrollClassToggled && node.repeatCount === 0) ||
-				((scrollInfiniteRepeat || node.repeatCount < scrollRepeat) &&
+				(!scrollClassToggled && node[namespacedProp('repeatCount')] === 0) ||
+				((scrollInfiniteRepeat || node[namespacedProp('repeatCount')] < scrollRepeat) &&
 					(!scrollClassToggled &&
 						(nodeRect.top > window.innerHeight || nodeRect.bottom < 0)))
 			) {
 				node.classList[scrollReverse ? "remove" : "add"](scrollClass);
-				node.isInViewport = false;
+				node[namespacedProp('isInViewport')] = false;
 				node.dispatchEvent(OUTSIDE_VP);
-				return node.isInViewport;
+				return node[namespacedProp('isInViewport')];
 			}
 		});
 	};
