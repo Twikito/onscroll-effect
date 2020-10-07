@@ -4,7 +4,7 @@ __A tiny JavaScript library to enable CSS animations when user scrolls.__
 
 This library allows you to __toggle one or more classes__ on an element when it appears inside the viewport __when the user scrolls__ the page. It enables you to build __CSS transitions or animations__ launched only when the user scrolls the page to the element. All you have to do is set a few HTML attributes, and code the rest with your CSS skills.
 
-See some examples in [the documentation](https://twikito.github.io/onscroll-effect/).
+Go check the [full documentation](https://twikito.github.io/onscroll-effect/).
 
 ## Status
 
