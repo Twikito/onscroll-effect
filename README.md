@@ -4,16 +4,17 @@ __A tiny JavaScript library to enable CSS animations when user scrolls.__
 
 This library allows you to __toggle one or more classes__ on an element when it appears inside the viewport __when the user scrolls__ the page. It enables you to build __CSS transitions or animations__ launched only when the user scrolls the page to the element. All you have to do is set a few HTML attributes, and code the rest with your CSS skills.
 
-Note that as default behaviour, this library add a class list when the element __is outside of the viewport__.
+See some examples in [the documentation](https://twikito.github.io/onscroll-effect/).
 
-That is in order to avoid a broken page if your JavaScript is in error. This way, if you have any JavaScript issue, the default state of your element will appears on scroll.
+## Status
 
-Sometimes, you may need the opposite behaviour, i.e. adding a class when the element is inside the viewport. There is an option for that.
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/Twikito/onscroll-effect?style=flat-square)](https://github.com/Twikito/onscroll-effect/releases)
+[![npm](https://img.shields.io/npm/v/onscroll-effect?style=flat-square)](https://www.npmjs.com/package/onscroll-effect)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/onscroll-effect?style=flat-square)](https://github.com/Twikito/onscroll-effect/blob/master/dist/onscroll-effect.es6.min.js)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/onscroll-effect?style=flat-square)](https://github.com/Twikito/onscroll-effect/blob/master/dist/onscroll-effect.es6.min.js)
 
-[![npm version](https://badge.fury.io/js/onscroll-effect.svg?style=flat-square)](https://badge.fury.io/js/onscroll-effect)
-[![dependencies Status](https://david-dm.org/Twikito/onscroll-effect/status.svg?style=flat-square)](https://david-dm.org/Twikito/onscroll-effect)
-[![devDependencies Status](https://david-dm.org/Twikito/onscroll-effect/dev-status.svg?style=flat-square)](https://david-dm.org/Twikito/onscroll-effect?type=dev)
-[![GitHub license](https://img.shields.io/github/license/Twikito/onscroll-effect.svg?style=flat-square)](https://github.com/Twikito/onscroll-effect/blob/master/LICENSE)
+[![David](https://img.shields.io/david/Twikito/onscroll-effect?style=flat-square)](https://david-dm.org/Twikito/onscroll-effect)
+[![David](https://img.shields.io/david/dev/Twikito/onscroll-effect?style=flat-square)](https://david-dm.org/Twikito/onscroll-effect?type=dev)
 
 ## Quick start
 
