@@ -41,6 +41,6 @@
 		"gulp-rename": "^2.0.0",
 		"gulp-terser": "^1.1.7",
 		"gulp-util": "^3.0.8",
-		"gzip-size": "^5.1.1"
+		"gzip-size": "^6.0.0"
 	}
 }
