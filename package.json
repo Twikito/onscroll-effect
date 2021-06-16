@@ -33,7 +33,7 @@
 		"@babel/core": "^7.6.4",
 		"@babel/preset-env": "^7.6.3",
 		"browser-sync": "^2.26.12",
-		"del-cli": "^3.0.0",
+		"del-cli": "^4.0.0",
 		"eslint": "^7.9.0",
 		"gulp": "^4.0.0",
 		"gulp-babel": "^8.0.0",
